@@ -1,0 +1,52 @@
+@use '../../../styles/variables' as *;
+
+.filters {
+    margin-bottom: $spacing-lg;
+    padding: $spacing-md;
+    background: linear-gradient(135deg, $color-background-light 0%, $color-background-light 100%);
+    border-radius: $radius-md;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: fit-content;
+}
+
+.radioGroup {
+    display: flex;
+    gap: $spacing-sm;
+}
+
+.radioGroup label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: $spacing-sm $spacing-lg;
+    background: $color-background-light;
+    border: 2px solid $color-border-light;
+    border-radius: $radius-lg;
+    cursor: pointer;
+    font-weight: 500;
+    color: $color-grey;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+        border-color: $color-secondary;
+        color: $color-button;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2);
+    }
+    
+    &:has(input:checked) {
+        background: linear-gradient(135deg, $color-button 0%, $color-button-hover 100%);
+        border-color: $color-button-hover;
+        color: $color-white;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+}
+
+.radioGroup input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}

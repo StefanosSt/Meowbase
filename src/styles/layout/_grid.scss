@@ -1,0 +1,16 @@
+.grid {
+  margin-bottom: 80px;
+
+  .card {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  &:hover > .card:not(:hover) {
+    opacity: 0.8;
+  }
+}

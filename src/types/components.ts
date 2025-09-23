@@ -47,3 +47,9 @@ export interface BreedCardProps {
   image?: BaseImage;
   onClick?: () => void;
 }
+
+// Filters types
+export interface FiltersProps {
+    hasBreeds: number;
+    onChange: (value: number) => void;
+}

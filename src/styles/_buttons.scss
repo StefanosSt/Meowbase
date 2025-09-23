@@ -1,0 +1,71 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+.btn {
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-md;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+  
+}
+
+.btn-primary {
+  background-color: $color-button;
+  color: $color-white;
+  
+  &:hover:not(:disabled) {
+    background-color: $color-button-hover;
+    transform: translateY(-2px);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: $color-button-disabled;
+    transform: translateY(0);
+  }
+}
+
+.btn-disabled,
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  
+  &:hover {
+    transform: none;
+  }
+}
+
+.catlist__load-more {
+  text-align:center;
+}
+
+// Loading state
+.btn-loading {
+  position: relative;
+  color: transparent;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
