@@ -1,0 +1,97 @@
+@use '../../../styles/variables' as *;
+
+.footer {
+    background: $color-background-dark;
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        :global(.cat-logo) {
+            transition: transform 0.3s ease;
+            transform: translateY(-40px);
+        }
+    }
+}
+
+.rightSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: $spacing-sm;
+}
+
+.contactTitle {
+    font-size: $font-size-md;
+    font-weight: 600;
+    color: $color-white;
+    margin-bottom: $spacing-xs;
+}
+
+.contactLinks {
+    display: flex;
+    gap: $spacing-md;
+}
+
+.contactLink {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    text-decoration: none;
+    color: $color-white;
+    padding: $spacing-sm;
+    border-radius: $radius-sm;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $color-secondary;
+        transform: translateY(-1px);
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: fill 0.2s ease;
+}
+
+.linkText {
+    font-size: $font-size-sm;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: $spacing-md;
+        text-align: center;
+    }
+
+    .rightSection {
+        align-items: center;
+    }
+
+    .contactLinks {
+        justify-content: center;
+    }
+}

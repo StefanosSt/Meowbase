@@ -36,3 +36,28 @@ h3 {
   letter-spacing: -0.5px;
   text-align: center;
 }
+
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  padding-block: $spacing-xl;
+  padding-inline: $spacing-lg;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+
+  @media (min-width: 768px) {
+    padding-top: $spacing-xxxl;
+    padding-inline: $spacing-lg;
+  }
+}
+
+@media (max-width:767px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
