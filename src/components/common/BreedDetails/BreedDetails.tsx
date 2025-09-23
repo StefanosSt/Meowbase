@@ -1,14 +1,14 @@
 import Rating from '@components/common/Rating/Rating';
 import styles from './BreedDetails.module.scss';
-import type { BreedData } from '@types';
+import type { BreedData, ModalDetails } from '@types';
 
 
 interface BreedDetailsProps {
-  breed: BreedData;
+  breed: BreedData | ModalDetails;
 }
 
 const BreedDetails = ({ breed }: BreedDetailsProps) => {
-  const temperamentTraits = breed.temperament.split(', ');
+  const temperamentTraits = breed.temperament?.split(', ') || [];
 
   return (
     <div className={styles.breedDetails}>
@@ -16,7 +16,7 @@ const BreedDetails = ({ breed }: BreedDetailsProps) => {
         <h3 className={styles.breedDetails__name}>{breed.name}</h3>
         <div className={styles.breedDetails__origin}>
           <span className={styles.breedDetails__country}>{breed.origin}</span>
-          <span className={styles.breedDetails__code}>({breed.country_code})</span>
+          {breed.country_code && <span className={styles.breedDetails__code}>({breed.country_code})</span>}
         </div>
       </div>
 
@@ -29,12 +29,14 @@ const BreedDetails = ({ breed }: BreedDetailsProps) => {
           <span className={styles.breedDetails__label}>Life Span:</span>
           <span className={styles.breedDetails__value}>{breed.life_span} years</span>
         </div>
-        <div className={styles.breedDetails__infoItem}>
-          <span className={styles.breedDetails__label}>Weight:</span>
-          <span className={styles.breedDetails__value}>
-            {breed.weight.metric} kg ({breed.weight.imperial} lbs)
-          </span>
-        </div>
+        {breed.weight && (
+          <div className={styles.breedDetails__infoItem}>
+            <span className={styles.breedDetails__label}>Weight:</span>
+            <span className={styles.breedDetails__value}>
+              {breed.weight.metric} kg ({breed.weight.imperial} lbs)
+            </span>
+          </div>
+        )}
       </div>
 
       <div className={styles.breedDetails__temperament}>
@@ -53,51 +55,51 @@ const BreedDetails = ({ breed }: BreedDetailsProps) => {
         <div className={styles.breedDetails__ratingsGrid}>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Adaptability</span>
-            <Rating rating={breed.adaptability} />
+            <Rating rating={breed.adaptability || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Affection Level</span>
-            <Rating rating={breed.affection_level} />
+            <Rating rating={breed.affection_level || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Child Friendly</span>
-            <Rating rating={breed.child_friendly} />
+            <Rating rating={breed.child_friendly || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Dog Friendly</span>
-            <Rating rating={breed.dog_friendly} />
+            <Rating rating={breed.dog_friendly || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Energy Level</span>
-            <Rating rating={breed.energy_level} />
+            <Rating rating={breed.energy_level || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Grooming</span>
-            <Rating rating={breed.grooming} />
+            <Rating rating={breed.grooming || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Health Issues</span>
-            <Rating rating={breed.health_issues} />
+            <Rating rating={breed.health_issues || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Intelligence</span>
-            <Rating rating={breed.intelligence} />
+            <Rating rating={breed.intelligence || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Shedding Level</span>
-            <Rating rating={breed.shedding_level} />
+            <Rating rating={breed.shedding_level || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Social Needs</span>
-            <Rating rating={breed.social_needs} />
+            <Rating rating={breed.social_needs || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Stranger Friendly</span>
-            <Rating rating={breed.stranger_friendly} />
+            <Rating rating={breed.stranger_friendly || 0} />
           </div>
           <div className={styles.breedDetails__ratingItem}>
             <span className={styles.breedDetails__ratingLabel}>Vocalisation</span>
-            <Rating rating={breed.vocalisation} />
+            <Rating rating={breed.vocalisation || 0} />
           </div>
         </div>
       </div>

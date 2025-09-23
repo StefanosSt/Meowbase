@@ -1,5 +1,5 @@
 import type { ReactNode, ElementType } from 'react';
-import type { BaseImage, BreedData } from './api';
+import type { BaseImage, BreedData, Weight } from './api';
 
 // Header types
 export interface NavigationItem {
@@ -82,11 +82,47 @@ export interface ModalProps {
   catId?: string | number;
 }
 
-// export interface modalContent
+// Modal content interface that can handle Cat, Breed, or custom modal data
 export interface ModalDetails {
   id: string;
-  url: string;
-  width: number;
-  height: number;
+  url?: string;
+  width?: number;
+  height?: number;
   breeds?: BreedData[];
+  name?: string;
+  description?: string;
+  temperament?: string;
+  origin?: string;
+  life_span?: string;
+  weight?: Weight;
+  image?: BaseImage;
+  country_code?: string;
+  adaptability?: number;
+  affection_level?: number;
+  child_friendly?: number;
+  dog_friendly?: number;
+  energy_level?: number;
+  grooming?: number;
+  health_issues?: number;
+  intelligence?: number;
+  shedding_level?: number;
+  social_needs?: number;
+  stranger_friendly?: number;
+  vocalisation?: number;
+  indoor?: number;
+  lap?: number;
+  hypoallergenic?: number;
+  hairless?: number;
+  rex?: number;
+  natural?: number;
+  rare?: number;
+  experimental?: number;
+  suppressed_tail?: number;
+  short_legs?: number;
+}
+
+export interface ModalContentProps {
+  content: ModalDetails;
+  currentBreedCats?: string[];
+  isBreed?: boolean;
 }

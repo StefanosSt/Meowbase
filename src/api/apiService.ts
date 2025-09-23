@@ -109,6 +109,11 @@ const fetchCatById = async (catId: string) => {
     return request(`images/${catId}`);
 };
 
+// Fetch all the cats of a specific Breed
+const fetchCatsByBreed = async (breedId: string, limit: number = 10) => {
+    return fetchData('images/search', { limit, breed_ids: breedId });
+};
+
 // Export the API service as an object with all methods
 export const apiService = {
     fetchData,
@@ -117,5 +122,6 @@ export const apiService = {
     fetchFavorites,
     addToFavorites,
     removeFromFavorites,
-    fetchCatById
+    fetchCatById,
+    fetchCatsByBreed
 };

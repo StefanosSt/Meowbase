@@ -66,3 +66,13 @@ export function useCatById(catId: string, options = {}) {
         ...options,
     });
 }
+
+// Fetch cats by breed ID
+export function useCatsByBreed(breedId: string, limit = 10, options = {}) {
+    return useQuery({
+        queryKey: ['cats-by-breed', breedId, limit],
+        queryFn: () => apiService.fetchCatsByBreed(breedId, limit),
+        staleTime: 1000 * 60 * 5,
+        ...options,
+    });
+}

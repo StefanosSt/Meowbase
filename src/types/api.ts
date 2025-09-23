@@ -25,6 +25,7 @@ export interface Cat {
 
 // Breed
 export interface Breed {
+  url: string;
   id: string;
   name: string;
   description?: string;
