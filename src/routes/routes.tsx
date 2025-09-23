@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <NotFound />,
+        element: <NotFound />, // Could use the errorElement property but needed to reapply layout components
       },
     ],
   },
