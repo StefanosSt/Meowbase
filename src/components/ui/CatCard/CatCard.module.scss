@@ -1,0 +1,67 @@
+@use '../../../styles/variables' as *;
+
+.card {
+  border: 1px solid $color-border-light;
+  position: relative;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: $color-background-light;
+  grid-column: 1 / -1;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &.landscape {
+    grid-column: span 2;
+  }
+
+  @media (min-width: 768px) {
+    grid-column: auto;
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: $spacing-md;
+}
+
+.id {
+  margin: 0 0 $spacing-sm 0;
+  font-weight: bold;
+  color: $color-grey;
+}
+
+.dimensions {
+  margin: 0;
+  font-size: $font-size-sm;
+  color: $color-grey;
+}
+
+.cardFavoriteBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: transform 0.2s ease-in-out;
+    z-index: 10; 
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

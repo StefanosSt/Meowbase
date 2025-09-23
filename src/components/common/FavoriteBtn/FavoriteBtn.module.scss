@@ -1,0 +1,13 @@
+.heartIcon {
+  path {
+    stroke: #000;
+    fill: white;
+  }
+  
+  &.favorited {
+    path {
+      stroke: red;
+      fill: red;
+    }
+  }
+}
