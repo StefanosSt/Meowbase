@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { setHeaderData } from '@store/headerSlice';
 import { useAppDispatch } from '@store/hooks';
 import GridLayout from '@components/ui/GridLayout/GridLayout';
@@ -8,12 +8,18 @@ import { useLocalStorage } from '@hooks';
 import { useDynamicInfiniteCats } from '@/api/hooks';
 import type { Cat } from '@types';
 import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
+import { useSearchParams } from 'react-router-dom';
+import { Modal } from '@/components/ui/Modal/Modal';
+import ModalContent from '@/components/ui/Modal/ModalContent';
 
 
 const Catlist = () => {
   const limit = 10;
-  const [hasBreeds, setHasBreeds] = useLocalStorage('cat-breed-filter', 1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCat, setSelectedCat] = useState<Cat | null>(null);
 
+  const [hasBreeds, setHasBreeds] = useLocalStorage('cat-breed-filter', 1);
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,6 +41,21 @@ const Catlist = () => {
   } = useDynamicInfiniteCats({ has_breeds: hasBreeds }, limit);
 
   const allCatImages = (data?.pages.flat() || []) as Cat[];
+
+  const handleCatClick = (cat: Cat) => {
+    setSelectedCat(cat)
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('cat_id', cat.id);
+    setSearchParams(newParams);
+    setIsModalOpen(true);
+  }
+
+  const handleModalClose = () => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.delete('cat_id');
+    setSearchParams(newParams);
+    setIsModalOpen(false);
+  }
 
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -71,7 +92,7 @@ const Catlist = () => {
             alt={`Cat ${cat.id}`}
             width={cat.width}
             height={cat.height}
-            onClick={() => console.log('Cat clicked from list:', cat.id)}
+            openModal={() => handleCatClick(cat)}
           />
         ))}
       </GridLayout>
@@ -86,6 +107,18 @@ const Catlist = () => {
             {isFetchingNextPage ? 'Loading...' : 'Load More Cats'}
           </button>
         </div>
+      )}
+
+      {selectedCat && (
+        <Modal
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            onClose={handleModalClose}
+            title={`Cat ${selectedCat.id}`}
+            orientation={selectedCat.width > selectedCat.height ? 'Landscape' : 'Portrait'}
+        >
+            <ModalContent content={selectedCat} />
+        </Modal>
       )}
     </div>
   )

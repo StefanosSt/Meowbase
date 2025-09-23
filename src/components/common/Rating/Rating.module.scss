@@ -1,0 +1,22 @@
+@use '../../../styles/variables' as *;
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  &__star {
+    &--filled {
+      fill: $color-text;
+      stroke: none;
+    }
+
+    &--empty {
+      stroke: $color-text;
+      stroke-width: 1px;
+      path {
+        fill:transparent;
+      }
+    }
+  }
+}

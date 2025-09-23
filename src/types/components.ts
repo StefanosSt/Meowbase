@@ -1,5 +1,5 @@
 import type { ReactNode, ElementType } from 'react';
-import type { BaseImage } from './api';
+import type { BaseImage, BreedData } from './api';
 
 // Header types
 export interface NavigationItem {
@@ -16,7 +16,7 @@ export interface CatCardProps {
   height?: number;
   children?: ReactNode;
   className?: string;
-  onClick?: () => void;
+  openModal?: () => void;
 }
 
 // Favorite button types
@@ -69,4 +69,24 @@ export interface FavoriteBtnProps {
     className?: string;
     title?: string;
     disabled?: boolean;
+}
+
+// Modal component types
+export interface ModalProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  onClose: () => void;
+  children: ReactNode;
+  title?: string;
+  orientation?: string;
+  catId?: string | number;
+}
+
+// export interface modalContent
+export interface ModalDetails {
+  id: string;
+  url: string;
+  width: number;
+  height: number;
+  breeds?: BreedData[];
 }
