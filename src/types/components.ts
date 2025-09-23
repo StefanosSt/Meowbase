@@ -1,4 +1,5 @@
 import type { ReactNode, ElementType } from 'react';
+import type { BaseImage } from './api';
 
 // Header types
 export interface NavigationItem {
@@ -34,3 +35,15 @@ export interface GridProps {
   className?: string;
   as?: ElementType;
 };
+
+// Breed card types
+export interface BreedCardProps {
+  id: string;
+  name: string;
+  description?: string;
+  temperament?: string;
+  origin?: string;
+  lifeSpan?: string;
+  image?: BaseImage;
+  onClick?: () => void;
+}
