@@ -1,0 +1,160 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.header {
+    width: 100%;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11;
+    margin-top: $spacing-xl;
+    width: 90%;
+    max-width: 80rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(16px);
+    border-radius: $radius-xl;
+    padding: $spacing-sm $spacing-md;
+    box-shadow:
+        0 10px 25px -5px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbarContainer {
+    @include flex-center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbarBrand {
+    @include flex-center;
+    gap: $spacing-xl;
+}
+
+.navbarLogo {
+    @include flex-center;
+    gap: $spacing-sm;
+    text-decoration: none;
+    font-size: $font-size-lg;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+
+        :global(.cat-logo) {
+            transition: transform 0.3s ease;
+            transform: translateY(-40px);
+        }
+    }
+}
+
+.navbarLogoText {
+    color: $color-primary;
+    font-weight: 700;
+}
+
+.navbarLinks {
+    @include flex-center;
+    gap: $spacing-md;
+}
+
+.navbarLinksDesktop {
+    display: none;
+
+    @media (min-width: 768px) {
+        display: flex;
+    }
+}
+
+.navbarLink {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: $font-size-sm;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-lg;
+    transition: all 0.2s ease;
+    position: relative;
+
+    &:hover {
+        color: $color-white;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.navbarLinkActive {
+    color: $color-primary;
+    background: rgba(255, 152, 0, 0.1);
+
+    &:hover {
+        background: rgba(255, 152, 0, 0.2);
+    }
+}
+
+.navbarToggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.navbarToggleIcon {
+    fill: $color-white;
+    border-radius: $radius-sm;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.navbarMobile {
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: $spacing-sm;
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.navbarMobileLink {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    font-size: $font-size-md;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-lg;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+        color: $color-white;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.navbarMobileLinkActive {
+    color: $color-primary;
+    background: rgba(255, 152, 0, 0.1);
+
+    &:hover {
+        background: rgba(255, 152, 0, 0.2);
+    }
+}
