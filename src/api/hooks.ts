@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { apiService } from './apiService';
 
 
@@ -13,5 +13,14 @@ export function useDynamicInfiniteCats(params = {}, limit = 10) {
         },
         staleTime: 1000 * 60 * 5,
         initialPageParam: 0,
+    });
+}
+
+// Fetch all breeds
+export function useBreeds() {
+    return useQuery({
+        queryKey: ['breeds'],
+        queryFn: () => apiService.fetchBreeds(),
+        staleTime: 1000 * 60 * 10,
     });
 }

@@ -76,9 +76,15 @@ const fetchCats = async (params: Record<string, unknown> = {}) => {
     return fetchData('images/search', params);
 };
 
+// Fetch Breeds for Breeds page
+const fetchBreeds = async (params: Record<string, unknown> = {}) => {
+    return fetchData('breeds', params);
+};
+
 
 // Export the API service as an object with all methods
 export const apiService = {
     fetchData,
     fetchCats,
+    fetchBreeds,
 };
