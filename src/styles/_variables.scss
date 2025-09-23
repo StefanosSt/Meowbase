@@ -1,0 +1,61 @@
+// Typography
+$font-base: 'Inter',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  Arial;
+
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 20px;
+$font-size-xl: 30px;
+$font-size-xxl: 40px;
+
+// Color Palette
+$color-primary: #ff9800;
+$color-secondary: #3ed6ff;
+
+$color-button: #007bff;
+$color-button-hover: #0056b3;
+$color-button-disabled: #004085;
+
+$color-white: #fff;
+$color-dark: #000;
+$color-grey: #555;
+
+$color-text: #2c2c2c;
+
+$color-success-dark: #155724;
+$color-success-light: #28a745;
+$color-error-dark: #721c24;
+$color-error-light: #f8d7da;
+$color-info-dark: #0c5460;
+$color-info-light: #d1ecf1;
+
+$color-background-dark: #2c2c2c;
+$color-background-light: #f8f9fa;
+
+$color-white-60: rgba(255, 255, 255, 0.6);
+$color-white-70: rgba(255, 255, 255, 0.7);
+$color-white-80: rgba(255, 255, 255, 0.8);
+
+$color-border-light: #e5e5e5;
+$color-border-dark: #2c2c2c;
+
+// Spacing
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+$spacing-xxxl: 60px;
+
+$radius-xs: 4px;
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-xl: 30px;
