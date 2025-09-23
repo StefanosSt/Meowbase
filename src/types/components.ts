@@ -62,3 +62,11 @@ export interface GridSkeletonProps {
   gap?: string;
   className?: string;
 }
+
+// Favorite button types
+export interface FavoriteBtnProps {
+    imageId: string;
+    className?: string;
+    title?: string;
+    disabled?: boolean;
+}

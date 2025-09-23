@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiService } from './apiService';
 
 
@@ -22,5 +22,37 @@ export function useBreeds() {
         queryKey: ['breeds'],
         queryFn: () => apiService.fetchBreeds(),
         staleTime: 1000 * 60 * 10,
+    });
+}
+
+// Fetch Favorites
+export function useFavorites(params = {}) {
+    return useQuery({
+        queryKey: ['favorites', params],
+        queryFn: () => apiService.fetchFavorites(params),
+        staleTime: 1000 * 60 * 2,
+    });
+}
+
+// Add to Favorites
+export function useAddToFavorites() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({ imageId, subId }: { imageId: string; subId?: string }) => 
+            apiService.addToFavorites(imageId, subId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['favorites'] });
+        },
+    });
+}
+
+// Remove from Favorites
+export function useRemoveFromFavorites() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (favoriteId: number) => apiService.removeFromFavorites(favoriteId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['favorites'] });
+        },
     });
 }

@@ -49,6 +49,11 @@ const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<
     }
 };
 
+// Request function for mutations (without loading state)
+const mutationRequest = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
+    return baseRequest<T>(endpoint, options);
+};
+
 const buildQuery = (params: Record<string, unknown>): string => {
     const searchParams = new URLSearchParams();
     
@@ -81,10 +86,30 @@ const fetchBreeds = async (params: Record<string, unknown> = {}) => {
     return fetchData('breeds', params);
 };
 
+// Fetch Favorite Cats passing params of sub_id
+const fetchFavorites = async (params: Record<string, unknown> = {}) => {
+    return fetchData('favourites', params);
+};
+
+// Add a cat in Favorites
+const addToFavorites = async (imageId: string, subId?: string) => {
+    return mutationRequest('favourites', {
+        method: 'POST',
+        body: JSON.stringify({ image_id: imageId, sub_id: subId }),
+    });
+};
+
+// Remove a cat from Favorites
+const removeFromFavorites = async (favoriteId: number) => {
+    return mutationRequest(`favourites/${favoriteId}`, { method: 'DELETE' });
+};
 
 // Export the API service as an object with all methods
 export const apiService = {
     fetchData,
     fetchCats,
     fetchBreeds,
+    fetchFavorites,
+    addToFavorites,
+    removeFromFavorites,
 };

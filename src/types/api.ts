@@ -34,3 +34,12 @@ export interface Breed {
   weight?: Weight;
   image?: BaseImage;
 }
+
+// Favorite Item
+export interface FavoriteItem {
+  id: number;
+  image_id: string;
+  sub_id?: string;
+  created_at: string;
+  image?: BaseImage;
+}
