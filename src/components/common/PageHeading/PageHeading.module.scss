@@ -1,0 +1,20 @@
+@use '../../../styles/variables' as *;
+
+.headerContent {
+    text-align: center;
+    color: $color-white;
+    margin-top: 128px;
+    margin-bottom: $spacing-xl;
+}
+
+.title {
+    margin: 0 0 $spacing-md 0;
+    font-size: $font-size-xxl;
+    font-weight: bold;
+}
+
+.description {
+    margin: 0.5rem 0;
+    font-size: $font-size-md;
+    line-height: 1.4;
+}
