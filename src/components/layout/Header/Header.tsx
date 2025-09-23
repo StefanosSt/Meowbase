@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Logo, HamburgerMenu } from '@assets/icons/icons';
-
+import { useClickOutside, useEscapeKey } from '@hooks';
 import styles from './Header.module.scss';
 import type { NavigationItem } from '@types';
 
@@ -14,9 +14,12 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navRef = useClickOutside<HTMLElement>(() => setIsOpen(false));
+  useEscapeKey(() => setIsOpen(false), isOpen);
+
   return (
     <header className={styles.header}>
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar} ref={navRef}>
         <div className={styles.navbarContainer}>
           <div className={styles.navbarBrand}>
             <NavLink to="/" className={styles.navbarLogo}>
