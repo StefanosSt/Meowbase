@@ -1,6 +1,7 @@
 import { Heart } from '@assets/icons/icons';
 import styles from './FavoriteBtn.module.scss';
 import { useAddToFavorites, useRemoveFromFavorites, useFavorites } from '@api/hooks';
+import { showGlobalToast } from '@hooks/useToast';
 import type { FavoriteBtnProps, FavoriteItem } from '@types';
 
 
@@ -28,18 +29,44 @@ const FavoriteBtn = ({
         if (isFavorited && Array.isArray(favorites)) {
             const favoriteItem = favorites.find((fav: FavoriteItem) => fav.image_id === imageId);
             if (favoriteItem) {
-                removeFromFavoritesMutation.mutate(favoriteItem.id);
+                removeFromFavoritesMutation.mutate(favoriteItem.id, {
+                    onSuccess: () => {
+                        showGlobalToast({
+                            message: 'Removed from favorites!',
+                            color: 'info'
+                        });
+                    },
+                    onError: () => {
+                        showGlobalToast({
+                            message: 'Failed to remove from favorites',
+                            color: 'error'
+                        });
+                    }
+                });
             }
         } else {
             addToFavoritesMutation.mutate({
                 imageId: imageId,
                 subId: 'user-gwi'
+            }, {
+                onSuccess: () => {
+                    showGlobalToast({
+                        message: 'Added to favorites!',
+                        color: 'success'
+                    });
+                },
+                onError: () => {
+                    showGlobalToast({
+                        message: 'Failed to add to favorites',
+                        color: 'error'
+                    });
+                }
             });
         }
     };
 
     const isLoading = addToFavoritesMutation.isPending || removeFromFavoritesMutation.isPending;
-    
+
     return (
         <button
             title={title || (isFavorited ? "Remove from Favorites" : "Add to Favorites")}
