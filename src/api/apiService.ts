@@ -104,6 +104,11 @@ const removeFromFavorites = async (favoriteId: number) => {
     return mutationRequest(`favourites/${favoriteId}`, { method: 'DELETE' });
 };
 
+// Fetch a specific cat with id
+const fetchCatById = async (catId: string) => {
+    return request(`images/${catId}`);
+};
+
 // Export the API service as an object with all methods
 export const apiService = {
     fetchData,
@@ -112,4 +117,5 @@ export const apiService = {
     fetchFavorites,
     addToFavorites,
     removeFromFavorites,
+    fetchCatById
 };

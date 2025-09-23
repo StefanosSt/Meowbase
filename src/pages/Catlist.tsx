@@ -5,7 +5,7 @@ import GridLayout from '@components/ui/GridLayout/GridLayout';
 import CatCard from '@components/ui/CatCard/CatCard';
 import Filters from '@components/ui/Filters/Filters';
 import { useLocalStorage } from '@hooks';
-import { useDynamicInfiniteCats } from '@/api/hooks';
+import { useDynamicInfiniteCats, useCatById } from '@/api/hooks';
 import type { Cat } from '@types';
 import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
 import { useSearchParams } from 'react-router-dom';
@@ -15,11 +15,12 @@ import ModalContent from '@/components/ui/Modal/ModalContent';
 
 const Catlist = () => {
   const limit = 10;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const itemId = searchParams.get('cat_id');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCat, setSelectedCat] = useState<Cat | null>(null);
 
   const [hasBreeds, setHasBreeds] = useLocalStorage('cat-breed-filter', 1);
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -39,6 +40,18 @@ const Catlist = () => {
     isLoading,
     error,
   } = useDynamicInfiniteCats({ has_breeds: hasBreeds }, limit);
+
+  const { data: sharedCat } = useCatById(
+    itemId || '',
+    { enabled: !!itemId && !selectedCat && !isModalOpen }
+  ) as { data: Cat | undefined };
+
+  useEffect(() => {
+    if (sharedCat && itemId && !selectedCat) {
+      setSelectedCat(sharedCat);
+      setIsModalOpen(true);
+    }
+  }, [sharedCat, itemId, selectedCat, isModalOpen]);
 
   const allCatImages = (data?.pages.flat() || []) as Cat[];
 

@@ -56,3 +56,13 @@ export function useRemoveFromFavorites() {
         },
     });
 }
+
+// Fetch single cat by ID
+export function useCatById(catId: string, options = {}) {
+    return useQuery({
+        queryKey: ['cat', catId],
+        queryFn: () => apiService.fetchCatById(catId),
+        staleTime: 1000 * 60 * 5,
+        ...options,
+    });
+}
