@@ -49,6 +49,12 @@ h3 {
   max-width:300px;
 }
 
+.error-message {
+  font-size: $font-size-lg;
+  color: $color-white;
+  text-align:center;
+}
+
 .main-content {
   padding-block: $spacing-xl;
   padding-inline: $spacing-lg;

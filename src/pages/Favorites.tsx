@@ -1,24 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setHeaderData } from '@store/headerSlice';
 import { useAppDispatch } from '@store/hooks';
 import { useFavorites } from '@api/hooks';
-
+import { useSearchParams, NavLink } from 'react-router-dom'
 import GridLayout from '@components/ui/GridLayout/GridLayout';
 import CatCard from '@components/ui/CatCard/CatCard';
 import type { FavoriteItem, Cat } from '@types';
 import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
+import { Modal } from '@/components/ui/Modal/Modal';
+import ModalContent from '@/components/ui/Modal/ModalContent';
 
 const Favorites = () => {
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(
-            setHeaderData({
-                title: 'Favorites',
-                description: 'Keep track of your favorite cats here.'
-            })
-        );
-    }, [dispatch]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCat, setSelectedCat] = useState<Cat | null>(null);
 
     const {
         data: favorites,
@@ -26,6 +22,35 @@ const Favorites = () => {
     } = useFavorites({
         sub_id: 'user-gwi'
     });
+
+    useEffect(() => {
+        const headerDescription = (!favorites || !Array.isArray(favorites) || favorites.length === 0)
+            ? 'No favorite cats yet. Start exploring and add some favorites!'
+            : 'Keep track of your favorite cats here.';
+
+        dispatch(
+            setHeaderData({
+                title: 'Favorites',
+                description: headerDescription
+            })
+        );
+    }, [dispatch, favorites]);
+
+    const handleCatClick = (cat: Cat) => {
+        setSelectedCat(cat)
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('cat_id', cat.id);
+        setSearchParams(newParams);
+        setIsModalOpen(true);
+    }
+
+    const handleModalClose = () => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete('cat_id');
+        setSearchParams(newParams);
+        setIsModalOpen(false);
+    }
+
 
     if (isLoading) {
         return (
@@ -35,10 +60,25 @@ const Favorites = () => {
         );
     }
 
+
     if (!favorites || !Array.isArray(favorites) || favorites.length === 0) {
         return (
             <div className="error-message">
-                <p>No favorite cats yet. Start exploring and add some favorites!</p>
+                <p>Do you want to explore and add some favorites?</p>
+                <div className="catlist__load-more" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1.5rem' }}>
+                    <NavLink
+                        to="/"
+                        className='btn btn-primary'
+                    >
+                        Explore Cats
+                    </NavLink>
+                    <NavLink
+                        to="/breeds"
+                        className='btn btn-primary'
+                    >
+                        Explore Breeds
+                    </NavLink>
+                </div>
             </div>
         );
     }
@@ -54,7 +94,6 @@ const Favorites = () => {
                         height: favorite.image?.height || 0,
                         breeds: []
                     };
-
                     return (
                         <CatCard
                             key={favorite.id}
@@ -63,11 +102,22 @@ const Favorites = () => {
                             alt={`Favorite Cat ${favorite.image_id}`}
                             width={favorite.image?.width}
                             height={favorite.image?.height}
-                            onClick={() => console.log(catData)}
+                            openModal={() => handleCatClick(catData)}
                         />
                     );
                 })}
             </GridLayout>
+            {selectedCat && (
+                <Modal
+                    isOpen={isModalOpen}
+                    setIsOpen={setIsModalOpen}
+                    onClose={handleModalClose}
+                    title={`Cat ${selectedCat.id}`}
+                    orientation={selectedCat.width > selectedCat.height ? 'Landscape' : 'Portrait'}
+                >
+                    <ModalContent content={selectedCat} />
+                </Modal>
+            )}
         </div>
     )
 }
