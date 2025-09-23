@@ -53,3 +53,12 @@ export interface FiltersProps {
     hasBreeds: number;
     onChange: (value: number) => void;
 }
+
+// Grid skeleton types
+export interface GridSkeletonProps {
+  type?: 'cat' | 'breed';
+  count?: number;
+  columns?: number;
+  gap?: string;
+  className?: string;
+}

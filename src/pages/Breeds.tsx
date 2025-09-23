@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { setHeaderData } from '@store/headerSlice';
 import { useAppDispatch } from '@store/hooks';
 import { useBreeds } from '@api/hooks';
+import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
 import BreedCard from '@/components/ui/BreedCard/BreedCard';
 import GridLayout from '@/components/ui/GridLayout/GridLayout';
 import type { Breed } from '@types';
@@ -11,6 +12,7 @@ const Breeds = () => {
 
     const {
         data: breedsData,
+        isLoading,
         error,
     } = useBreeds();
 
@@ -24,6 +26,10 @@ const Breeds = () => {
             })
         );
     }, [dispatch]);
+
+    if (isLoading) {
+        return <GridSkeleton type="breed" count={8} columns={4} gap="1.5rem" />;
+    }
 
     if (error) {
         return (

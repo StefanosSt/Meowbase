@@ -7,6 +7,7 @@ import Filters from '@components/ui/Filters/Filters';
 import { useLocalStorage } from '@hooks';
 import { useDynamicInfiniteCats } from '@/api/hooks';
 import type { Cat } from '@types';
+import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
 
 
 const Catlist = () => {
@@ -29,6 +30,7 @@ const Catlist = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isLoading,
     error,
   } = useDynamicInfiniteCats({ has_breeds: hasBreeds }, limit);
 
@@ -40,16 +42,26 @@ const Catlist = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <>
+        <Filters hasBreeds={hasBreeds} onChange={setHasBreeds} />
+        <GridSkeleton type="cat" count={20} columns={5} gap="1rem" />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-message">
+        <p>Error loading cats. Please try again later.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Filters hasBreeds={hasBreeds} onChange={setHasBreeds} />
-
-      {error && (
-        <div className="error-message">
-          <p>Error loading cats. Please try again later.</p>
-        </div>
-      )}
-
       <GridLayout columns={5} gap="1rem" className="grid">
         {allCatImages.map(cat => (
           <CatCard
