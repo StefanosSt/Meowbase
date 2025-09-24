@@ -41,6 +41,7 @@ export const Modal = ({ isOpen, setIsOpen, onClose, children, title, orientation
       className={`${styles.modal} ${orientation}`}
       onClick={handleBackdropClick}
       onClose={onClose}
+      data-testid="modal-dialog"
     >
       <div className={styles.modalContent}>
         <header className={styles.modalHeader}>
@@ -50,6 +51,7 @@ export const Modal = ({ isOpen, setIsOpen, onClose, children, title, orientation
               onClick={handleBackClick}
               type="button"
               aria-label="Go back"
+              data-testid="modal-back-btn"
             >
               <Arrow/>
             </button>
@@ -60,6 +62,7 @@ export const Modal = ({ isOpen, setIsOpen, onClose, children, title, orientation
             onClick={onClose}
             type="button"
             aria-label="Close modal"
+            data-testid="modal-close-btn"
           >
             ×
           </button>
