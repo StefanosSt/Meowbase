@@ -6,15 +6,12 @@ const CatCard = ({
   id,
   imageUrl,
   alt = 'Cat image',
-  width,
-  height,
   openModal
 }: CatCardProps) => {
-  const isLandscape = width && height && width > height;
 
   return (
     <div
-      className={`${styles.card} ${isLandscape ? styles.landscape : ''} card`}
+      className={`${styles.card} card`}
       onClick={openModal}
       role="button"
       tabIndex={0}

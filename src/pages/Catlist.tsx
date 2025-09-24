@@ -82,7 +82,7 @@ const Catlist = () => {
     return (
       <>
         <Filters hasBreeds={hasBreeds} onChange={setHasBreeds} />
-        <GridSkeleton type="cat" count={20} columns={5} gap="1rem" />
+        <GridSkeleton type="cat" count={10} columns={5} gap="1rem" />
       </>
     );
   }
@@ -105,12 +105,14 @@ const Catlist = () => {
             id={cat.id}
             imageUrl={cat.url}
             alt={`Cat ${cat.id}`}
-            width={cat.width}
-            height={cat.height}
             openModal={() => handleCatClick(cat)}
           />
         ))}
       </GridLayout>
+
+      {isFetchingNextPage &&
+        <GridSkeleton type="cat" count={10} columns={5} gap="1rem" />
+      }
 
       {hasNextPage && (
         <div className="catlist__load-more">
@@ -126,13 +128,13 @@ const Catlist = () => {
 
       {selectedCat && (
         <Modal
-            isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
-            onClose={handleModalClose}
-            title={`Cat ${selectedCat.id}`}
-            orientation={selectedCat.width > selectedCat.height ? 'Landscape' : 'Portrait'}
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          onClose={handleModalClose}
+          title={`Cat ${selectedCat.id}`}
+          orientation={selectedCat.width > selectedCat.height ? 'Landscape' : 'Portrait'}
         >
-            <ModalContent content={selectedCat} hasBreedDetails={!!selectedCat.breeds?.length} />
+          <ModalContent content={selectedCat} hasBreedDetails={!!selectedCat.breeds?.length} />
         </Modal>
       )}
     </div>

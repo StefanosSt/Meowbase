@@ -1,3 +1,5 @@
+@use '../../../styles/variables' as *;
+
 .heartIcon {
   path {
     stroke: #000;
@@ -6,8 +8,8 @@
   
   &.favorited {
     path {
-      stroke: red;
-      fill: red;
+      stroke: $color-red;
+      fill: $color-red;
     }
   }
 }

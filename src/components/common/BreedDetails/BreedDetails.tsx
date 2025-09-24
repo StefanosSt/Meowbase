@@ -10,6 +10,12 @@ interface BreedDetailsProps {
 const BreedDetails = ({ breed }: BreedDetailsProps) => {
   const temperamentTraits = breed.temperament?.split(', ') || [];
 
+  // Helper for safe dynamic property access
+  function getBreedNumberProp<T extends object>(obj: T, key: string): number {
+    const value = (obj as Record<string, unknown>)[key];
+    return typeof value === 'number' ? value : 0;
+  }
+
   return (
     <div className={styles.breedDetails}>
       <div className={styles.breedDetails__header}>
@@ -53,92 +59,57 @@ const BreedDetails = ({ breed }: BreedDetailsProps) => {
       <div className={styles.breedDetails__ratings}>
         <h4 className={styles.breedDetails__sectionTitle}>Characteristics</h4>
         <div className={styles.breedDetails__ratingsGrid}>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Adaptability</span>
-            <Rating rating={breed.adaptability || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Affection Level</span>
-            <Rating rating={breed.affection_level || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Child Friendly</span>
-            <Rating rating={breed.child_friendly || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Dog Friendly</span>
-            <Rating rating={breed.dog_friendly || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Energy Level</span>
-            <Rating rating={breed.energy_level || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Grooming</span>
-            <Rating rating={breed.grooming || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Health Issues</span>
-            <Rating rating={breed.health_issues || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Intelligence</span>
-            <Rating rating={breed.intelligence || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Shedding Level</span>
-            <Rating rating={breed.shedding_level || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Social Needs</span>
-            <Rating rating={breed.social_needs || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Stranger Friendly</span>
-            <Rating rating={breed.stranger_friendly || 0} />
-          </div>
-          <div className={styles.breedDetails__ratingItem}>
-            <span className={styles.breedDetails__ratingLabel}>Vocalisation</span>
-            <Rating rating={breed.vocalisation || 0} />
-          </div>
+          {(() => {
+            const ratingFields: { [key: string]: string } = {
+               adaptability: 'Adaptability' ,
+               affection_level: 'Affection Level' ,
+               child_friendly: 'Child Friendly' ,
+               dog_friendly: 'Dog Friendly' ,
+               energy_level: 'Energy Level' ,
+               grooming: 'Grooming' ,
+               health_issues: 'Health Issues' ,
+               intelligence: 'Intelligence' ,
+               shedding_level: 'Shedding Level' ,
+               social_needs: 'Social Needs' ,
+               stranger_friendly: 'Stranger Friendly' ,
+               vocalisation: 'Vocalisation' };
+            return Object.entries(ratingFields).map(([key, label]) => (
+              <div key={key} className={styles.breedDetails__ratingItem}>
+                <span className={styles.breedDetails__ratingLabel}>{label}</span>
+                <Rating rating={getBreedNumberProp(breed, key)} />
+              </div>
+            ));
+          })()}
         </div>
       </div>
 
-      <div className={styles.breedDetails__features}>
-        <h4 className={styles.breedDetails__sectionTitle}>Special Features</h4>
-        <div className={styles.breedDetails__featuresList}>
-          {breed.indoor === 1 && (
-            <span className={styles.breedDetails__feature}>Indoor Cat</span>
-          )}
-          {breed.lap === 1 && (
-            <span className={styles.breedDetails__feature}>Lap Cat</span>
-          )}
-          {breed.hypoallergenic === 1 && (
-            <span className={styles.breedDetails__feature}>Hypoallergenic</span>
-          )}
-          {breed.hairless === 1 && (
-            <span className={styles.breedDetails__feature}>Hairless</span>
-          )}
-          {breed.rex === 1 && (
-            <span className={styles.breedDetails__feature}>Rex Coat</span>
-          )}
-          {breed.natural === 1 && (
-            <span className={styles.breedDetails__feature}>Natural Breed</span>
-          )}
-          {breed.rare === 1 && (
-            <span className={styles.breedDetails__feature}>Rare Breed</span>
-          )}
-          {breed.experimental === 1 && (
-            <span className={styles.breedDetails__feature}>Experimental</span>
-          )}
-          {breed.suppressed_tail === 1 && (
-            <span className={styles.breedDetails__feature}>Suppressed Tail</span>
-          )}
-          {breed.short_legs === 1 && (
-            <span className={styles.breedDetails__feature}>Short Legs</span>
-          )}
-        </div>
-      </div>
+      {(() => {
+        const specialFeatures: { [key: string]: string } = {
+          indoor: 'Indoor Cat',
+          lap: 'Lap Cat',
+          hypoallergenic: 'Hypoallergenic',
+          hairless: 'Hairless',
+          rex: 'Rex Coat',
+          natural: 'Natural Breed',
+          rare: 'Rare Breed',
+          experimental: 'Experimental',
+          suppressed_tail: 'Suppressed Tail',
+          short_legs: 'Short Legs',
+        };
+        const enabledFeatures = Object.entries(specialFeatures)
+          .filter(([key]) => getBreedNumberProp(breed, key) === 1)
+          .map(([key, label]) => (
+            <span key={key} className={styles.breedDetails__feature}>{label}</span>
+          ));
+        return (
+          <div className={styles.breedDetails__features}>
+            <h4 className={styles.breedDetails__sectionTitle}>Special Features</h4>
+            <div className={styles.breedDetails__featuresList}>
+              {enabledFeatures.length > 0 ? enabledFeatures : <span className={styles.breedDetails__feature}>None</span>}
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 };

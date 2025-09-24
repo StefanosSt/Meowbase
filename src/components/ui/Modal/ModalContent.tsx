@@ -26,10 +26,11 @@ const ModalContent = ({ content, hasBreedDetails = false, currentBreedCats }: Mo
     ) as { data: ModalDetails | undefined };
 
     useEffect(() => {
-        if (currentBreedCats && currentBreedCats.length > 1) {
+        if (currentBreedCats && currentBreedCats.length > 0) {
             dispatch(setBreedContent({
                 currentBreedCats,
-                breedData: content.breeds?.[0]
+                breedData: content.breeds?.[0],
+
             }));
         }
     }, [currentBreedCats, content.breeds, dispatch]);
@@ -46,8 +47,8 @@ const ModalContent = ({ content, hasBreedDetails = false, currentBreedCats }: Mo
                 }
             }));
 
-            dispatch(setSharedUrl(`?cat_id=${selectedImageId}`));
             setSelectedImageId(null);
+            dispatch(setSharedUrl(`?cat_id=${selectedImageId}`));
         }
     }, [catDetails, selectedImageId, dispatch, setSelectedImageId]);
 
@@ -90,7 +91,7 @@ const ModalContent = ({ content, hasBreedDetails = false, currentBreedCats }: Mo
 
     return (
         <>
-            {currentBreedCats && currentBreedCats.length > 1  && currentView === 'breed' ? (
+            {currentBreedCats && currentBreedCats.length > 0  && currentView === 'breed' ? (
                 <div className={styles['modal__breed-images']}>
                     <h3>Explore the {content.name || 'Breed'} cats</h3>
                     <div className={styles['modal__breed-gallery']}>

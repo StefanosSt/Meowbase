@@ -1,5 +1,7 @@
+@use '../../styles/variables' as *;
+
 .grid {
-  margin-bottom: 80px;
+  margin-bottom: $spacing-md;
 
   .card {
     transition: transform 0.3s ease;

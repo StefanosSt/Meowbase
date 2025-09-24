@@ -12,8 +12,6 @@ export interface CatCardProps {
   id: string;
   imageUrl: string;
   alt?: string;
-  width?: number;
-  height?: number;
   children?: ReactNode;
   className?: string;
   openModal?: () => void;

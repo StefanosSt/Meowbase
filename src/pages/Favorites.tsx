@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { setHeaderData } from '@store/headerSlice';
 import { useAppDispatch } from '@store/hooks';
+import { setSharedUrl, clearSharedUrl } from '@/store/sharedUrlSlice';
 import { useFavorites } from '@api/hooks';
 import { useSearchParams, NavLink } from 'react-router-dom'
 import GridLayout from '@components/ui/GridLayout/GridLayout';
@@ -42,6 +43,7 @@ const Favorites = () => {
         newParams.set('cat_id', cat.id);
         setSearchParams(newParams);
         setIsModalOpen(true);
+        dispatch(setSharedUrl(`?cat_id=${cat.id}`));
     }
 
     const handleModalClose = () => {
@@ -49,6 +51,7 @@ const Favorites = () => {
         newParams.delete('cat_id');
         setSearchParams(newParams);
         setIsModalOpen(false);
+        dispatch(clearSharedUrl())
     }
 
 
@@ -100,8 +103,6 @@ const Favorites = () => {
                             id={favorite.image_id}
                             imageUrl={favorite.image?.url || ''}
                             alt={`Favorite Cat ${favorite.image_id}`}
-                            width={favorite.image?.width}
-                            height={favorite.image?.height}
                             openModal={() => handleCatClick(catData)}
                         />
                     );

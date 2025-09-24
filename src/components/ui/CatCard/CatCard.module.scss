@@ -14,10 +14,6 @@
     transform: scale(1.02);
   }
 
-  &.landscape {
-    grid-column: span 2;
-  }
-
   @media (min-width: 768px) {
     grid-column: auto;
   }
