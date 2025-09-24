@@ -4,7 +4,7 @@ import type { ModalContentState, BreedContent, CatContent } from '@types';
 const initialState: ModalContentState = {
     breedContent: null,
     catContent: null,
-    currentView: 'breed',
+    currentView: null,
 };
 
 const modalContentSlice = createSlice({
@@ -22,8 +22,8 @@ const modalContentSlice = createSlice({
         switchToBreedView: (state) => {
             state.currentView = 'breed';
         },
-        switchToCatView: (state) => {
-            state.currentView = 'cat';
+        switchToCatView: (state, action: PayloadAction<'cat' | null>) => {
+            state.currentView = action.payload;
         },
         clearModalContent: () => {
             return initialState;

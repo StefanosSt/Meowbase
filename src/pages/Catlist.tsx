@@ -11,6 +11,7 @@ import { GridSkeleton } from '@/components/ui/Skeletons/Skeletons';
 import { useSearchParams } from 'react-router-dom';
 import { Modal } from '@/components/ui/Modal/Modal';
 import ModalContent from '@/components/ui/Modal/ModalContent';
+import { clearSharedUrl } from '@/store/sharedUrlSlice';
 
 
 const Catlist = () => {
@@ -68,6 +69,7 @@ const Catlist = () => {
     newParams.delete('cat_id');
     setSearchParams(newParams);
     setIsModalOpen(false);
+    dispatch(clearSharedUrl())
   }
 
   const handleLoadMore = () => {

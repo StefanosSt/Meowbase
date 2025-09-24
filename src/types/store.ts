@@ -25,5 +25,5 @@ export interface CatContent {
 export interface ModalContentState {
   breedContent: BreedContent | null;
   catContent: CatContent | null;
-  currentView: 'breed' | 'cat';
+  currentView: 'breed' | 'cat' | null;
 }

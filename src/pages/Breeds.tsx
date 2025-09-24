@@ -10,6 +10,8 @@ import { Modal } from '@/components/ui/Modal/Modal';
 import ModalContent from '@/components/ui/Modal/ModalContent';
 import type { Breed } from '@types';
 import { showGlobalToast } from '@/hooks/useToast';
+import { switchToCatView } from '@/store/modalContentSlice';
+import { clearSharedUrl } from '@/store/sharedUrlSlice';
 
 const Breeds = () => {
     const [selectedBreed, setSelectedBreed] = useState<Breed | null>(null);
@@ -76,6 +78,8 @@ const Breeds = () => {
     newParams.delete('breed_id');
     setSearchParams(newParams);
     setIsModalOpen(false);
+    dispatch(switchToCatView(null));
+    dispatch(clearSharedUrl())
   }
 
     if (isLoading) {
