@@ -1,5 +1,6 @@
 import { setLoading } from '@store/loadingSlice';
 import { store } from '@store/store';
+import { totalCount } from '@store/favoritesCounterSlice';
 
 const getApiConfig = () => ({
     baseUrl: import.meta.env.VITE_API_URL,
@@ -88,7 +89,11 @@ const fetchBreeds = async (params: Record<string, unknown> = {}) => {
 
 // Fetch Favorite Cats passing params of sub_id
 const fetchFavorites = async (params: Record<string, unknown> = {}) => {
-    return fetchData('favourites', params);
+    const result = await fetchData('favourites', params);
+    if (Array.isArray(result)) {
+        store.dispatch(totalCount(result.length));
+    }
+    return result;
 };
 
 // Add a cat in Favorites

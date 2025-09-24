@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { Logo, HamburgerMenu } from '@assets/icons/icons';
 import { useClickOutside, useEscapeKey } from '@hooks';
+import { useAppSelector } from '@store/hooks';
 import styles from './Header.module.scss';
 import type { NavigationItem } from '@types';
 
@@ -13,7 +14,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { count } = useAppSelector(state => state.favoritesCounter);
   const navRef = useClickOutside<HTMLElement>(() => setIsOpen(false));
   useEscapeKey(() => setIsOpen(false), isOpen);
 
@@ -31,15 +32,16 @@ const Header = () => {
               className={`${styles.navbarLinks} ${styles.navbarLinksDesktop}`}
             >
               {NAVIGATION_ITEMS.map(item => (
-                <NavLink
-                  key={item.href}
-                  to={item.href}
-                  className={({ isActive }) =>
-                    `${styles.navbarLink}${isActive ? ` ${styles.navbarLinkActive}` : ''}`
-                  }
-                >
-                  {item.title}
-                </NavLink>
+                  <NavLink
+                    key={item.href}
+                    to={item.href}
+                    className={({ isActive }) =>
+                      `${styles.navbarLink}${isActive ? ` ${styles.navbarLinkActive}` : ''}`
+                    }
+                  >
+                    {item.title}
+                    {item.title === 'Favorites' && count > 0 &&<span className={styles.count}>{count}</span>}
+                  </NavLink>
               ))}
             </div>
           </div>

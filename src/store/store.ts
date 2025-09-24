@@ -3,6 +3,7 @@ import headerReducer from './headerSlice';
 import loadingReducer from './loadingSlice';
 import modalContentReducer from './modalContentSlice';
 import sharedUrlReducer from './sharedUrlSlice';
+import favoritesCounterReducer from './favoritesCounterSlice'
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
    loading: loadingReducer,
    sharedUrl: sharedUrlReducer,
    modalContent: modalContentReducer,
+   favoritesCounter: favoritesCounterReducer
   },
 });
 
