@@ -124,5 +124,5 @@ export interface ModalDetails {
 export interface ModalContentProps {
   content: ModalDetails;
   currentBreedCats?: string[];
-  isBreed?: boolean;
+  hasBreedDetails?: boolean;
 }

@@ -151,3 +151,10 @@ export const Star = ({ width = 16, height = 16, className = ''}: Props) => {
     </svg>
   )
 }
+
+export const Arrow = ({ width = 24, height = 24, className = ''}: Props) => {
+  return (
+    <svg width={width} className={className}
+      height={height} xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11-11-4.929-11-11 4.929-11 11-11zm-4.828 11.5l4.608 3.763-.679.737-6.101-5 6.112-5 .666.753-4.604 3.747h11.826v1h-11.828z"/></svg>
+  )
+}

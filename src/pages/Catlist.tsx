@@ -130,7 +130,7 @@ const Catlist = () => {
             title={`Cat ${selectedCat.id}`}
             orientation={selectedCat.width > selectedCat.height ? 'Landscape' : 'Portrait'}
         >
-            <ModalContent content={selectedCat} />
+            <ModalContent content={selectedCat} hasBreedDetails={!!selectedCat.breeds?.length} />
         </Modal>
       )}
     </div>

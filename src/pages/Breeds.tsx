@@ -89,7 +89,7 @@ const Breeds = () => {
             </div>
         );
     }
-
+    
     return (
         <div>
             <GridLayout columns={4} gap="1.5rem" className="grid">
@@ -115,7 +115,7 @@ const Breeds = () => {
                     onClose={handleModalClose}
                     title={`${selectedBreed.name || 'Breed'} Cat`}
                 >
-                    <ModalContent content={selectedBreed} isBreed={true} currentBreedCats={currentBreedCats} />
+                    <ModalContent content={selectedBreed} hasBreedDetails={true} currentBreedCats={currentBreedCats} />
                 </Modal>
             )}
         </div>
